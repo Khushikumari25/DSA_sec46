@@ -1,0 +1,45 @@
+Approach (Precomputed Left & Right Max Arrays):
+
+Precompute leftmax[]: for each index, store the maximum height to its left.
+
+Precompute rightmax[]: for each index, store the maximum height to its right.
+
+For each bar:
+
+Water level = min(leftmax[i], rightmax[i]).
+
+Trapped water = water level − height[i].
+
+Sum trapped water for all bars.
+
+Reason:
+By precomputing left and right maximum heights, we can determine water trapped at each index in constant time without repeatedly scanning the array.
+
+Time Complexity: O(n) — each array is scanned a constant number of times.
+Space Complexity: O(n) — for storing leftmax[] and rightmax[] arrays.
+
+
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+
+        int leftmax[] = new int[n];
+        leftmax[0] = height[0];
+        for(int i = 1; i< n; i++){
+            leftmax[i]=Math.max(height[i] , leftmax [i-1]);
+        }
+        int rightmax[] = new int[n];
+        rightmax [n-1] = height[n-1];
+        for(int i = n-2 ; i>=0; i--){
+            rightmax [i]=Math.max(height[i] , rightmax[i+1]);  
+        }
+        int trappedRainwater = 0;
+        for(int i = 0; i< n ; i++){
+           int waterlevel = Math.min(leftmax[i], rightmax[i]);
+
+           int trappedwater = waterlevel- height[i];
+           trappedRainwater += trappedwater;
+        }
+        return trappedRainwater ;
+}
+}
