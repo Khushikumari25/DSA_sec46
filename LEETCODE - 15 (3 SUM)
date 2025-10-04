@@ -1,0 +1,52 @@
+Approach (Two Pointer after Sorting):
+Sort the array to easily find triplets with sum 0.
+Fix one element nums[i] and use two pointers — left = i + 1 and right = n - 1.
+Calculate sum = nums[i] + nums[left] + nums[right].
+If sum < 0, move left++ to increase sum.
+If sum > 0, move right-- to decrease sum.
+If sum == 0, store the triplet and move both pointers while skipping duplicates.
+Skip duplicate values of nums[i] to avoid repeated triplets.
+Continue until all unique triplets are found.
+
+Reason:
+Sorting allows efficient searching for pairs using two pointers instead of three nested loops, reducing time complexity.
+
+Time Complexity: O(n²) — one loop for fixing i and a two-pointer scan for each i.
+Space Complexity: O(1) — only uses extra space for storing results.
+
+
+
+public class Solution {
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        int n = nums.length;
+
+        for (int i = 0; i < n - 2; i++) {
+            // Skip duplicate nums[i]
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+            int left = i + 1, right = n - 1;
+
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum < 0) {
+                    left++;
+                } else if (sum > 0) {
+                    right--;
+                } else {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+                    // Skip duplicates for nums[left] and nums[right]
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+
+                    left++;
+                    right--;
+                }
+            }
+        }
+        return res;
+    }
+}
