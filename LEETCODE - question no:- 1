@@ -1,0 +1,28 @@
+Approach (Brute Force using Two Loops):
+Traverse the array using two nested loops.
+For each element nums[i], check every next element nums[j].
+If nums[i] + nums[j] == target, return their indices {i, j}.
+If no pair is found, return an empty array.
+
+Reason:
+We check all possible pairs to find the two numbers whose sum equals the target.
+
+Time Complexity: O(n²) — because of the nested loops.
+Space Complexity: O(1) — no extra space is used except for the output array.
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+       // int target = arr[i];
+       int n = nums.length;
+        for(int i= 0 ; i<n ;i++){
+            for( int j=i+1 ; j<n; j++){
+                if(nums[i]+nums[j]== target){
+                    return new int[]{i,j};
+                }
+
+         }
+     }
+          return new int[]{};
+      }
+
+}
