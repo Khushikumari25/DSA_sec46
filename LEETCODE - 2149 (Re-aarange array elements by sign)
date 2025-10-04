@@ -1,0 +1,42 @@
+Approach (Separate Positive and Negative Placement):
+
+Create a result array of the same size as nums.
+
+Use two pointers:
+
+pos starting at index 0 for positive numbers.
+
+neg starting at index 1 for negative numbers.
+
+Traverse nums:
+
+If number is positive → place at result[pos], then increment pos by 2.
+
+If number is negative → place at result[neg], then increment neg by 2.
+
+Return the rearranged array.
+
+Reason:
+By placing positives at even indexes and negatives at odd indexes, the array is rearranged to alternate signs while maintaining relative order.
+
+Time Complexity: O(n) — single pass through the array.
+Space Complexity: O(n) — for the result array.
+
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        int [] result = new int [ nums.length];
+        int pos = 0;
+        int neg = 1;
+
+        for (int num : nums){
+            if (num > 0){
+                result[pos]=num;
+                pos +=2;
+            }else{
+                result[neg]=num;
+                neg +=2;
+            }
+        }
+        return result;
+    }
+}
