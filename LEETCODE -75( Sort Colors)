@@ -1,0 +1,50 @@
+APPOROACH-
+Initialize
+
+low = 0, mid = 0, high = n - 1
+
+
+Loop while mid <= high:
+
+If nums[mid] == 0:
+Swap nums[low] and nums[mid]
+Increment both low and mid
+
+Else if nums[mid] == 1:
+Just increment mid
+
+Else (nums[mid] == 2):
+Swap nums[mid] and nums[high]
+Decrement high only (don’t increment mid yet, because the swapped element from the end must be checked)
+
+⏱️ Time and Space Complexity
+Complexity	Explanation
+Time: O(n)	Each element is processed at most once.
+Space: O(1)	Sorting is done in-place using only a few variables.
+
+
+class Solution {
+    public void sortColors(int[] nums) {
+          int low=0;
+          int mid=0;
+          int high=nums.length-1;
+        while(mid <=high){
+          if(nums[mid]==0){
+            int temp = nums[low];
+            nums[low]=nums[mid];
+            nums[mid]=temp;
+
+            low++;
+            mid++;
+          }else if(nums[mid] ==1){
+            mid++;
+          }else{
+            int temp = nums[high];
+            nums[high]=nums[mid];
+            nums[mid]=temp;
+
+            high--;
+          }
+        }
+    }
+}
